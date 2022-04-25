@@ -1,10 +1,58 @@
 import React from 'react';
 
-const PlaceDetails = ({ place}) => {
+import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip } from '@material-ui/core';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import PhoneIcon from '@material-ui/icons/Phone';
+import Rating from '@material-ui/lab/Rating';
+
+import useStyles from './style';
+
+
+const PlaceDetails = ({ place }) => {
+
+    const classes = useStyles();
+    const shortRating = place.ranking?.slice(0, -30);
+
     return (
-        <div>
-            <h1>{place.name}</h1>
-        </div>
+        <Card elevation={6}>
+            <CardMedia
+                style={{ height: 350}}
+                image={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
+                title={place.name}
+            />
+            <CardContent>
+                <Typography gutterBottom variant='h5'>{place.name}</Typography>
+                <Box display='flex' justifyContent='space-between'>
+                    <Typography variant='subtitle2'>Price</Typography>
+                    <Typography gutterBottom variant='subtitle2'>{place.price_level}</Typography>
+                </Box>
+                <Box display='flex' justifyContent='space-between'>
+                    <Typography variant='subtitle2'>Rancing</Typography>
+                    <Typography gutterBottom variant='subtitle2'>{shortRating}</Typography>
+                </Box>
+                {place.cuisine?.map(({ name }) => (
+                    <Chip key={name} size='small' label={name} className={classes.chip}/>
+                ))}
+                {place.address_obj?.street1 && (
+                    <Typography gutterBottom variant='body2' color='textSecondary' className={classes.subtitle}>
+                        <LocationOnIcon/>{place.address_obj.street1}
+                    </Typography>
+                )}
+                {place.phone && (
+                    <Typography gutterBottom variant='body2' color='textSecondary' className={classes.subtitle}>
+                        <PhoneIcon/>{place.phone}
+                    </Typography>
+                )}
+            </CardContent>
+            <CardActions>
+                <Button size='small' color='primary' onClick={() => window.open(place.web_url, '_blank')}>
+                    Trip Advisor
+                </Button>
+                <Button size='small' color='primary' onClick={() => window.open(place.website, '_blank')}>
+                    website
+                </Button>
+            </CardActions>
+        </Card>
     );
 };
 
