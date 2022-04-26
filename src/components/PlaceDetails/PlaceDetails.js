@@ -26,14 +26,14 @@ const PlaceDetails = ({ place, refProp, selected }) => {
                 <Typography gutterBottom variant='h5'>{place.name}</Typography>
                 <Box display='flex' justifyContent='space-between'>
                     <Rating value={Number(place.rating)} readOnly />
-                    <Typography gutterBottom variant='subtitle2'>out of {place.num_reviews} reviews</Typography>
+                    <Typography gutterBottom variant='subtitle2'>Отзывы: {place.num_reviews}</Typography>
                 </Box>
                 <Box display='flex' justifyContent='space-between'>
-                    <Typography variant='subtitle2'>Price</Typography>
+                    <Typography variant='subtitle2'>Уровень цен</Typography>
                     <Typography gutterBottom variant='subtitle2'>{place.price_level}</Typography>
                 </Box>
                 <Box display='flex' justifyContent='space-between'>
-                    <Typography variant='subtitle2'>Rancing</Typography>
+                    <Typography variant='subtitle2'>Рейтинг </Typography>
                     <Typography gutterBottom variant='subtitle2'>{shortRating}</Typography>
                 </Box>
                 {place.cuisine?.map(({ name }) => (

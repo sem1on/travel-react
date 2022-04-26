@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import GoogleMapReact from 'google-map-react';
 
@@ -8,7 +8,8 @@ import Rating from '@material-ui/lab/Rating';
 
 import useStyles from './style';
 
-const Map = ({ setCoordinates, setBounds, coordinates, places, setChildCliked }) => {
+
+const Map = ({ setCoordinates, setBounds, coordinates, places, setChildCliked, setRating, weatherData }) => {
 
     const classes= useStyles();
     const isDesctop = useMediaQuery('(min-width:600px)');
@@ -22,10 +23,11 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildCliked })
                 center={coordinates}
                 defaultZoom={14}
                 margin={[50, 50, 50, 50]}
-                // options={''}
+                options={{ disableDefaultUI: true, zoomControl: true}}
                 onChange={(e) => {
                     setCoordinates({ lat: e.center.lat, lng: e.center.lng });
-                    setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw })
+                    setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
+                    setRating('0')
                 }}
                 onChildClick={(child) => setChildCliked(child)}
             >
@@ -53,6 +55,11 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildCliked })
                                 </Paper>
                             )
                         }
+                    </div>
+                ))}
+                {weatherData?.list?.length && weatherData.list.map((data, i) => (
+                    <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
+                        <img src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} height="70px" />
                     </div>
                 ))}
             </GoogleMapReact>
