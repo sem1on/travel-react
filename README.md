@@ -1,5 +1,7 @@
 # Приложение, показывающее рестораны, отели и достопремичательности рядом с вами.
 
+Сайт: https://preeminent-mandazi-2a559d.netlify.app/
+
 Используемое API:
 1) https://rapidapi.com/apidojo/api/travel-advisor
 2) https://rapidapi.com/community/api/open-weather-map
